@@ -1,6 +1,6 @@
 ![TunnelForge Logo](./tunnelforge-350x350.jpg)
 
-![GitHub](https://img.shields.io/github/license/elshadaghazade/tunnelforge)
+![GitHub](https://img.shields.io/github/license/elshadaghazade/tunnelforge?label=license&style=for-the-badge)
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/elshadaghazade/tunnelforge/release.yml?branch=main)
 ![GitHub issues](https://img.shields.io/github/issues/elshadaghazade/tunnelforge)
 ![Docker Pulls](https://img.shields.io/docker/pulls/elshadaghazade/tunnelforge)
