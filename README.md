@@ -110,7 +110,7 @@ TunnelForge is licensed under the [MIT License](./LICENSE).
 Visit the official website of TunnelForge for more details: [tunnelforge.org](https://tunnelforge.org).
 
 ## Documentation
-The full API and usage documentation is hosted on [GitHub Pages](https://elshadaghazade.github.io/tunnerforge/). 
+The full API and usage documentation is hosted on [GitHub Pages](https://elshadaghazade.github.io/tunnelforge/). 
 
 If you'd like to view it locally or use it in a different hosting platform, the documentation is generated using TypeDoc and is located in the [/docs](./docs/index.html) folder.
 
