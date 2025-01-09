@@ -1,0 +1,36 @@
+{
+  "name": "tunnelforge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "client:dev": "dotenv -e .env.development -- nodemon --exec ts-node src/client.ts",
+    "server:dev": "dotenv -e .env.development -- nodemon --exec ts-node src/server.ts",
+    "build": "tsc",
+    "client:prod": "dotenv -e .env -- node public/client.js",
+    "server:prod": "dotenv -e .env -- node public/server.js",
+    "test": "jest",
+    "doc": "typedoc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "commander": "^13.0.0",
+    "dotenv-cli": "^8.0.0"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^9.2.6",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.5",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.9",
+    "semantic-release": "^22.0.12",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typedoc": "^0.27.6",
+    "typescript": "^5.7.2"
+  }
+}
