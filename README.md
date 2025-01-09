@@ -3,7 +3,6 @@
 ![GitHub](https://img.shields.io/github/license/elshadaghazade/tunnelforge)
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/elshadaghazade/tunnelforge/release.yml?branch=main)
 ![GitHub issues](https://img.shields.io/github/issues/elshadaghazade/tunnelforge)
-![npm](https://img.shields.io/npm/v/tunnelforge)
 ![Docker Pulls](https://img.shields.io/docker/pulls/elshadaghazade/tunnelforge)
 
 # TunnelForge
