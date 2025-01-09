@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  tunnelforge-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tunnelforge-server
+    restart: always
+    environment:
+      NODE_ENV: production
+      CLIENT_SERVER_PORT: 4000
+      INCOMING_SERVER_PORT: 4001
+      SERVER_CLIENT_HOST: 0.0.0.0
+      SERVER_INCOMING_HOST: 0.0.0.0
+      RECONNECT_INTERVAL: 1000
+      PROXY_SERVER_MAIN_HOST: myproxy.com
+    ports:
+      - "4000:4000"
+      - "4001:4001"
+    volumes:
+      - ./logs:/app/logs # Optional: Mount logs for persistence
+    command: ["npm", "run", "server:prod"]

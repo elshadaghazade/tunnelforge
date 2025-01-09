@@ -11,7 +11,7 @@
 
 ## Demo Video
 
-[![Watch the Demo](https://img.youtube.com/vi/owV8mpbeKIg/maxresdefault.jpg)](https://youtu.be/owV8mpbeKIg)
+[![Watch the Demo](https://img.youtube.com/vi/owV8mpbeKIg/hqdefault.jpg)](https://youtu.be/owV8mpbeKIg)
 
 Click the image above to watch the **TunnelForge** demo and learn how it works in action!
 
@@ -102,9 +102,40 @@ RECONNECT_INTERVAL=1000
 PROXY_SERVER_MAIN_HOST=globalmedbooking.com
 ```
 
-## Docker Support
-**Coming soon.**
-Stay tuned for Dockerfile and **docker-compose.yml** configurations for containerized deployments.
+## Dockerizing TunnelForge
+You can easily run the TunnelForge server using Docker. This simplifies the deployment process, ensuring a consistent environment.
+### Steps to Dockerize TunnelForge
+1. **Build the Docker Image Locally**
+    Clone the repository and navigate to its root folder. Then, build the Docker image:
+    ```
+    docker build -t elshadaghazade/tunnelforge .
+    ```
+2. **Run the Docker Container**
+    Use the following command to run the server:
+    ```
+    docker run -d \
+        -e NODE_ENV=production \
+        -e CLIENT_SERVER_PORT=4000 \
+        -e INCOMING_SERVER_PORT=4001 \
+        -e SERVER_CLIENT_HOST=0.0.0.0 \
+        -e SERVER_INCOMING_HOST=0.0.0.0 \
+        -e RECONNECT_INTERVAL=1000 \
+        -e PROXY_SERVER_MAIN_HOST=yourdomain.com \
+        -p 4000:4000 \
+        -p 4001:4001 \
+        elshadaghazade/tunnelforge
+    ```
+3. **Using Docker Compose**
+    With the provided ```docker-compose.yml``` file, simply run:
+    ```
+    docker compose up -d
+    ```
+    This will set up and start the TunnelForge server with the configuration in the docker-compose.yml.
+4. **Accessing TunnelForge**
+    After running the container, your TunnelForge server will be accessible on the specified ports (```CLIENT_SERVER_PORT``` and ```INCOMING_SERVER_PORT```) and domain (```PROXY_SERVER_MAIN_HOST```).
+
+Explore the official Docker image: [TunnelForge on Docker Hub](https://hub.docker.com/r/elshadaghazade/tunnelforge)
+
 
 ## Contributing
 We welcome contributions! See our [Contributing Guidelines](./CONTRIBUTING.md) for details.
