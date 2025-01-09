@@ -9,6 +9,12 @@
 
 **TunnelForge** is a lightweight, open-source, self-hosted alternative to [ngrok](https://ngrok.com/) that provides tunneling services for exposing local applications to the internet. It supports HTTP, WebSocket, and any other TCP-based protocols, allowing seamless integration with modern applications.
 
+## Demo Video
+
+[![Watch the Demo](https://img.youtube.com/vi/owV8mpbeKIg/maxresdefault.jpg)](https://youtu.be/owV8mpbeKIg)
+
+Click the image above to watch the **TunnelForge** demo and learn how it works in action!
+
 ## Features
 
 - Expose local services to the internet with unique subdomains.
