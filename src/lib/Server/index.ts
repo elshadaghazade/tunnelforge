@@ -1,4 +1,4 @@
-import net from 'net';
+import net from 'node:net';
 import crypto from 'crypto';
 import { 
     client_socket_command_enum, 

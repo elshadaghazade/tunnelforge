@@ -7,6 +7,7 @@ import {
     server_socket_command_enum
 } from '../../types/types';
 import { ProxySocketHandler } from './ProxySocketHandler';
+import dns from 'dns';
 
 const PROXY_SERVER_MAIN_HOST = process.env.PROXY_SERVER_MAIN_HOST || '127.0.0.1';
 const PING_INTERVAL = 60000;
@@ -122,7 +123,12 @@ export class Client {
             this.proxySocket?.removeAllListeners('end');
             this.proxySocket?.removeAllListeners('data');
 
-            this.proxySocket = await this.connect(this.proxyPort, this.proxyHost, () => {
+            let host = this.proxyHost;
+            if ((host.includes('127.0.0.1') || host.includes('localhost')) && await this.isHostMacOrWinInDockerContainer()) {
+                host = 'host.docker.internal';
+            }
+
+            this.proxySocket = await this.connect(this.proxyPort, host, () => {
                 console.log(`Connected to proxy server at ${this.proxyHost}:${this.proxyPort}`);
             });
 
@@ -335,6 +341,14 @@ export class Client {
         }
     }
 
+    isHostMacOrWinInDockerContainer () {
+        return new Promise(resolve => {
+            dns.lookup('host.docker.internal', err => {
+                resolve(!err);
+            });
+        });
+    }
+
     /**
      * Establishes a connection to App2 and sets up event listeners for the socket.
      * @param name - The unique name associated with the App2 connection.
@@ -348,7 +362,13 @@ export class Client {
      * - **`error`**: Logs errors and cleans up resources.
      */
     async connectToApp2(name: string) {
-        const app2Socket = await this.connect(this.localPort, this.localHost, () => {
+
+        let host = this.localHost;
+        if ((host.includes('127.0.0.1') || host.includes('localhost')) && await this.isHostMacOrWinInDockerContainer()) {
+            host = 'host.docker.internal';
+        }
+
+        const app2Socket = await this.connect(this.localPort, host, () => {
             console.log('Connected to App2', name);
         });
 
