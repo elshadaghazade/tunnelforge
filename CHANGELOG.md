@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/elshadaghazade/tunnelforge/compare/v1.2.0...v1.3.0) (2025-01-11)
+
+
+### Features
+
+* client is containerized / Merge pull request [#4](https://github.com/elshadaghazade/tunnelforge/issues/4) from elshadaghazade/feat/dockerize-client ([b2366c0](https://github.com/elshadaghazade/tunnelforge/commit/b2366c0e71a6873b1751c3372d0464e845859adf))
+
 # [1.2.0](https://github.com/elshadaghazade/tunnelforge/compare/v1.1.0...v1.2.0) (2025-01-11)
 
 
