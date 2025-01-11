@@ -1,49 +1,45 @@
-import { program } from 'commander';
-import { Client } from './lib/Client';
+import express from 'express';
+import net from 'node:net';
+import { ensureTerraformBinary } from './terraform-installation';
+import router from './routes';
 
-if (process.env.CLIENT_PARAM_SERVER_HOST) {
-    program.option('-h, --host <host>', 'Proxy server host', process.env.CLIENT_PARAM_SERVER_HOST);
-} else {
-    program.requiredOption('-h, --host <host>', 'Proxy server host', process.env.CLIENT_PARAM_SERVER_HOST);
-}
+const app = express();
 
-if (process.env.CLIENT_PARAM_SERVER_PORT) {
-    program.option('-p, --port <port>', 'Proxy server port', process.env.CLIENT_PARAM_SERVER_PORT);
-} else {
-    program.requiredOption('-p, --port <port>', 'Proxy server port', process.env.CLIENT_PARAM_SERVER_PORT)
-}
+const checkPortAvailability = (port: number): Promise<number> => {
+    return new Promise((resolve) => {
+      const server = net.createServer();
+      server.once('error', () => {
+        // Port is busy; increment and try again
+        resolve(checkPortAvailability(port + 1));
+      });
+      server.once('listening', () => {
+        server.close(() => resolve(port)); // Port is available
+      });
+      server.listen(port, '0.0.0.0');
+    });
+  };
+  
+  const startServer = async () => {
+    const INITIAL_PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+    const PORT = await checkPortAvailability(INITIAL_PORT);
 
-if (process.env.CLIENT_PARAM_LOCAL_APP_PORT) {
-    program.option('-q, --local-port <localPort>', 'Local service port', process.env.CLIENT_PARAM_LOCAL_APP_PORT)
-} else {
-    program.requiredOption('-q, --local-port <localPort>', 'Local service port', process.env.CLIENT_PARAM_LOCAL_APP_PORT)
-}
+    await ensureTerraformBinary();
 
-if (process.env.CLIENT_PARAM_LOCAL_APP_HOST) {
-    program.option('-r, --local-host <localHost>', 'Local service host', process.env.CLIENT_PARAM_LOCAL_APP_HOST);
-} else {
-    program.requiredOption('-r, --local-host <localHost>', 'Local service host', process.env.CLIENT_PARAM_LOCAL_APP_HOST)
-}
-    
-program.parse(process.argv);
+    app.use(express.json());
+    app.use(express.static('/assets'));
 
-const options = program.opts();
-const proxyHost = options.host;
-const proxyPort = parseInt(options.port, 10);
-const localPort = parseInt(options.localPort, 10);
-const localHost = options.localHost;
-
-const RECONNECT_INTERVAL = process.env.RECONNECT_INTERVAL ? parseInt(process.env.RECONNECT_INTERVAL, 10) : 1000;
-
-const incomingServerPort = process.env.INCOMING_SERVER_PORT ? parseInt(process.env.INCOMING_SERVER_PORT, 10) : 4000;
-
-const client = new Client(
-    proxyHost, 
-    proxyPort, 
-    localPort, 
-    localHost, 
-    incomingServerPort,
-    RECONNECT_INTERVAL
-);
-
-client.connectToProxy();
+    app.use(router);
+  
+    app.listen(PORT, '0.0.0.0', () => {
+        if (INITIAL_PORT === PORT) {
+            console.log(`Dashboard is running on http://0.0.0.0:${PORT}`);
+        } else {
+            console.log(`Port ${INITIAL_PORT} is busy. Dashboard is running on http://0.0.0.0:${PORT}`);
+        }
+    });
+  };
+  
+  startServer()
+    .catch(err => {
+        console.error("Dashboard error:", err.message);
+    });

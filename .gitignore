@@ -3,3 +3,5 @@ public/
 ROADMAP.md
 GUIDES.md
 logs/
+terraform-binary/
+client-config.json

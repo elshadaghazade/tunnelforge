@@ -1,0 +1,30 @@
+{
+    "1.10.4": {
+        "macos": {
+            "amd64": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_darwin_amd64.zip",
+            "arm64": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_darwin_arm64.zip"
+        },
+        "windows": {
+            "x86": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_windows_x86.zip",
+            "amd64": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_windows_amd64.zip"
+        },
+        "linux": {
+            "x86": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_linux_x86.zip",
+            "amd64": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_linux_amd64.zip",
+            "arm": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_linux_arm.zip",
+            "arm64": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_linux_arm64.zip"
+        },
+        "freebsd": {
+            "x86": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_freebsd_x86.zip",
+            "amd64": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_freebsd_amd64.zip",
+            "arm": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_freebsd_arm.zip"
+        },
+        "openbsd": {
+            "x86": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_openbsd_x86.zip",
+            "amd64": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_openbsd_amd64.zip"
+        },
+        "solaris": {
+            "amd64": "https://releases.hashicorp.com/terraform/1.10.4/terraform_1.10.4_solaris_amd64.zip"
+        }
+    }
+}
