@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/elshadaghazade/tunnelforge/compare/v1.1.0...v1.2.0) (2025-01-11)
+
+
+### Features
+
+* load client parameters from environment variables ([2cba315](https://github.com/elshadaghazade/tunnelforge/commit/2cba3150815faa61165f59568b5f1745aa3f5ffd))
+
 # [1.1.0](https://github.com/elshadaghazade/tunnelforge/compare/v1.0.0...v1.1.0) (2025-01-09)
 
 
