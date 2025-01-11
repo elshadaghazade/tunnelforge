@@ -2,7 +2,8 @@
 <p><img src="https://img.shields.io/github/license/elshadaghazade/tunnelforge?label=license&amp;style=for-the-badge" alt="GitHub">
 <img src="https://img.shields.io/github/actions/workflow/status/elshadaghazade/tunnelforge/release.yml?branch=main" alt="GitHub Workflow Status">
 <img src="https://img.shields.io/github/issues/elshadaghazade/tunnelforge" alt="GitHub issues">
-<img src="https://img.shields.io/docker/pulls/elshadaghazade/tunnelforge" alt="Docker Pulls"></p>
+<img src="https://img.shields.io/docker/pulls/elshadaghazade/tunnelforge-server?label=docker%20pulls%20for%20server" alt="Docker Pulls Server">
+<img src="https://img.shields.io/docker/pulls/elshadaghazade/tunnelforge-client?label=docker%20pulls%20for%20client" alt="Docker Pulls Client"></p>
 <a id="tunnelforge" class="tsd-anchor"></a><h1 class="tsd-anchor-link">TunnelForge<a href="#tunnelforge" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><p><strong>TunnelForge</strong> is a lightweight, open-source, self-hosted alternative to <a href="https://ngrok.com/">ngrok</a> that provides tunneling services for exposing local applications to the internet. It supports HTTP, WebSocket, and any other TCP-based protocols, allowing seamless integration with modern applications.</p>
 <a id="demo-video" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Demo Video<a href="#demo-video" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p><a href="https://youtu.be/owV8mpbeKIg"><img src="https://img.youtube.com/vi/owV8mpbeKIg/hqdefault.jpg" alt="Watch the Demo"></a></p>
 <p>Click the image above to watch the <strong>TunnelForge</strong> demo and learn how it works in action!</p>
@@ -88,27 +89,59 @@ The server will generate a static subdomain (sub1).</li>
 <pre><code><span class="hl-6">NODE_ENV</span><span class="hl-1">=</span><span class="hl-3">production</span><br/><span class="hl-6">CLIENT_SERVER_PORT</span><span class="hl-1">=</span><span class="hl-5">4000</span><br/><span class="hl-6">INCOMING_SERVER_PORT</span><span class="hl-1">=</span><span class="hl-5">4001</span><br/><span class="hl-6">SERVER_CLIENT_HOST</span><span class="hl-1">=</span><span class="hl-5">0.0</span><span class="hl-1">.</span><span class="hl-5">0.0</span><br/><span class="hl-6">SERVER_INCOMING_HOST</span><span class="hl-1">=</span><span class="hl-5">0.0</span><span class="hl-1">.</span><span class="hl-5">0.0</span><br/><span class="hl-6">RECONNECT_INTERVAL</span><span class="hl-1">=</span><span class="hl-5">1000</span><br/><span class="hl-6">PROXY_SERVER_MAIN_HOST</span><span class="hl-1">=</span><span class="hl-3">globalmedbooking</span><span class="hl-1">.</span><span class="hl-3">com</span>
 </code><button>Copy</button></pre>
 
-<a id="dockerizing-tunnelforge" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Dockerizing TunnelForge<a href="#dockerizing-tunnelforge" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>You can easily run the TunnelForge server using Docker. This simplifies the deployment process, ensuring a consistent environment.</p>
+<a id="dockerizing-tunnelforge" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Dockerizing TunnelForge<a href="#dockerizing-tunnelforge" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>You can easily run both the <strong>TunnelForge server</strong> and <strong>client</strong> using Docker. This approach simplifies deployment, ensuring a consistent environment for running the application</p>
 <a id="steps-to-dockerize-tunnelforge" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Steps to Dockerize TunnelForge<a href="#steps-to-dockerize-tunnelforge" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ol>
-<li><strong>Build the Docker Image Locally</strong>
-Clone the repository and navigate to its root folder. Then, build the Docker image:<pre><code><span class="hl-3">docker</span><span class="hl-1"> </span><span class="hl-3">build</span><span class="hl-1"> -</span><span class="hl-3">t</span><span class="hl-1"> </span><span class="hl-3">elshadaghazade</span><span class="hl-1">/</span><span class="hl-3">tunnelforge</span><span class="hl-1"> .</span>
+<li>
+<p><strong>Prepare the <code>.env</code> File</strong></p>
+<p>Create an .env file in the root directory with the following contents, adjusting the values to match your desired configuration:</p>
+<pre><code><span class="hl-6">NODE_ENV</span><span class="hl-1">=</span><span class="hl-3">production</span><br/><span class="hl-6">CLIENT_SERVER_PORT</span><span class="hl-1">=</span><span class="hl-5">4000</span><br/><span class="hl-6">INCOMING_SERVER_PORT</span><span class="hl-1">=</span><span class="hl-5">4001</span><br/><span class="hl-6">SERVER_CLIENT_HOST</span><span class="hl-1">=</span><span class="hl-5">0.0</span><span class="hl-1">.</span><span class="hl-5">0.0</span><br/><span class="hl-6">SERVER_INCOMING_HOST</span><span class="hl-1">=</span><span class="hl-5">0.0</span><span class="hl-1">.</span><span class="hl-5">0.0</span><br/><span class="hl-6">RECONNECT_INTERVAL</span><span class="hl-1">=</span><span class="hl-5">1000</span><br/><span class="hl-6">PROXY_SERVER_MAIN_HOST</span><span class="hl-1">=</span><span class="hl-3">yourcustomdomain</span><span class="hl-1">.</span><span class="hl-3">com</span><br/><br/><span class="hl-6">CLIENT_PARAM_SERVER_HOST</span><span class="hl-1">=</span><span class="hl-5">127.0</span><span class="hl-1">.</span><span class="hl-5">0.1</span><br/><span class="hl-6">CLIENT_PARAM_SERVER_PORT</span><span class="hl-1">=</span><span class="hl-5">4000</span><br/><span class="hl-6">CLIENT_PARAM_LOCAL_APP_HOST</span><span class="hl-1">=</span><span class="hl-5">127.0</span><span class="hl-1">.</span><span class="hl-5">0.1</span><br/><span class="hl-6">CLIENT_PARAM_LOCAL_APP_PORT</span><span class="hl-1">=</span><span class="hl-5">3010</span>
+</code><button>Copy</button></pre>
+
+<ul>
+<li><strong>Server Environment Variables:</strong>
+<ul>
+<li><code>CLIENT_SERVER_PORT</code> and <code>INCOMING_SERVER_PORT</code>: Ports exposed by the TunnelForge server.</li>
+<li><code>PROXY_SERVER_MAIN_HOST</code>: Your main domain to handle subdomains.</li>
+</ul>
+</li>
+<li><strong>Client Parameters:</strong>
+<ul>
+<li><code>CLIENT_PARAM_SERVER_HOST</code> and <code>CLIENT_PARAM_SERVER_PORT</code>: Host and port of the TunnelForge server.</li>
+<li><code>CLIENT_PARAM_LOCAL_APP_HOST</code> and <code>CLIENT_PARAM_LOCAL_APP_PORT</code>: Host and port of the local application to expose.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Build and Run with Docker Compose</strong></p>
+<p>The provided <code>docker-compose.yml</code> file is configured to build and run both the server and client. To start everything, simply run:</p>
+<pre><code><span class="hl-3">docker</span><span class="hl-1"> </span><span class="hl-3">compose</span><span class="hl-1"> </span><span class="hl-3">up</span><span class="hl-1"> -</span><span class="hl-3">d</span>
 </code><button>Copy</button></pre>
 
 </li>
-<li><strong>Run the Docker Container</strong>
-Use the following command to run the server:<pre><code><span class="hl-3">docker</span><span class="hl-1"> </span><span class="hl-3">run</span><span class="hl-1"> -</span><span class="hl-3">d</span><span class="hl-1"> \</span><br/><span class="hl-1">    -</span><span class="hl-3">e</span><span class="hl-1"> </span><span class="hl-6">NODE_ENV</span><span class="hl-1">=</span><span class="hl-3">production</span><span class="hl-1"> \</span><br/><span class="hl-1">    -</span><span class="hl-3">e</span><span class="hl-1"> </span><span class="hl-6">CLIENT_SERVER_PORT</span><span class="hl-1">=</span><span class="hl-5">4000</span><span class="hl-1"> \</span><br/><span class="hl-1">    -</span><span class="hl-3">e</span><span class="hl-1"> </span><span class="hl-6">INCOMING_SERVER_PORT</span><span class="hl-1">=</span><span class="hl-5">4001</span><span class="hl-1"> \</span><br/><span class="hl-1">    -</span><span class="hl-3">e</span><span class="hl-1"> </span><span class="hl-6">SERVER_CLIENT_HOST</span><span class="hl-1">=</span><span class="hl-5">0.0</span><span class="hl-1">.</span><span class="hl-5">0.0</span><span class="hl-1"> \</span><br/><span class="hl-1">    -</span><span class="hl-3">e</span><span class="hl-1"> </span><span class="hl-6">SERVER_INCOMING_HOST</span><span class="hl-1">=</span><span class="hl-5">0.0</span><span class="hl-1">.</span><span class="hl-5">0.0</span><span class="hl-1"> \</span><br/><span class="hl-1">    -</span><span class="hl-3">e</span><span class="hl-1"> </span><span class="hl-6">RECONNECT_INTERVAL</span><span class="hl-1">=</span><span class="hl-5">1000</span><span class="hl-1"> \</span><br/><span class="hl-1">    -</span><span class="hl-3">e</span><span class="hl-1"> </span><span class="hl-6">PROXY_SERVER_MAIN_HOST</span><span class="hl-1">=</span><span class="hl-3">yourdomain</span><span class="hl-1">.</span><span class="hl-3">com</span><span class="hl-1"> \</span><br/><span class="hl-1">    -</span><span class="hl-3">p</span><span class="hl-1"> </span><span class="hl-5">4000</span><span class="hl-1">:</span><span class="hl-5">4000</span><span class="hl-1"> \</span><br/><span class="hl-1">    -</span><span class="hl-3">p</span><span class="hl-1"> </span><span class="hl-5">4001</span><span class="hl-1">:</span><span class="hl-5">4001</span><span class="hl-1"> \</span><br/><span class="hl-1">    </span><span class="hl-3">elshadaghazade</span><span class="hl-1">/</span><span class="hl-3">tunnelforge</span>
+<li>
+<p><strong>Server and Client Communication</strong></p>
+<ul>
+<li>The <strong>server</strong> will listen on the ports specified in <code>CLIENT_SERVER_PORT</code> and <code>INCOMING_SERVER_PORT</code>.</li>
+<li>The <strong>client</strong> will forward requests to your local application and make it publicly accessible via the <code>PROXY_SERVER_MAIN_HOST</code> and generated subdomain.</li>
+</ul>
+</li>
+<li>
+<p><strong>Accessing Your Public URL</strong></p>
+<p>After starting the services, the client will log the public URL for accessing your local application. This will be in the format:</p>
+<pre><code><span class="hl-4">http</span><span class="hl-1">:</span><span class="hl-7">//[generated-subdomain].yourcustomdomain.com:[INCOMING_SERVER_PORT]</span>
 </code><button>Copy</button></pre>
 
 </li>
-<li><strong>Using Docker Compose</strong>
-With the provided <code>docker-compose.yml</code> file, simply run:<pre><code><span class="hl-3">docker</span><span class="hl-1"> </span><span class="hl-3">compose</span><span class="hl-1"> </span><span class="hl-3">up</span><span class="hl-1"> -</span><span class="hl-3">d</span>
-</code><button>Copy</button></pre>
-
-This will set up and start the TunnelForge server with the configuration in the docker-compose.yml.</li>
-<li><strong>Accessing TunnelForge</strong>
-After running the container, your TunnelForge server will be accessible on the specified ports (<code>CLIENT_SERVER_PORT</code> and <code>INCOMING_SERVER_PORT</code>) and domain (<code>PROXY_SERVER_MAIN_HOST</code>).</li>
+<li>
+<p><strong>Explore the Docker Images</strong></p>
+<p>You can find the Docker images for TunnelForge on Docker Hub:</p>
+<ul>
+<li><a href="https://hub.docker.com/r/elshadaghazade/tunnelforge-server">TunnelForge Server</a></li>
+<li><a href="https://hub.docker.com/r/elshadaghazade/tunnelforge-client">TunnelForge Client</a></li>
+</ul>
+</li>
 </ol>
-<p>Explore the official Docker image: <a href="https://hub.docker.com/r/elshadaghazade/tunnelforge">TunnelForge on Docker Hub</a></p>
 <a id="contributing" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Contributing<a href="#contributing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>We welcome contributions! See our <a href="media/CONTRIBUTING.md">Contributing Guidelines</a> for details.</p>
 <a id="license" class="tsd-anchor"></a><h2 class="tsd-anchor-link">License<a href="#license" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>TunnelForge is licensed under the <a href="media/LICENSE">MIT License</a>.</p>
 <a id="official-website" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Official Website<a href="#official-website" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Visit the official website of TunnelForge for more details: <a href="https://tunnelforge.org">tunnelforge.org</a>.</p>
