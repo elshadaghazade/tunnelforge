@@ -34,6 +34,7 @@ const localPort = parseInt(options.localPort, 10);
 const localHost = options.localHost;
 
 const RECONNECT_INTERVAL = process.env.RECONNECT_INTERVAL ? parseInt(process.env.RECONNECT_INTERVAL, 10) : 1000;
+
 const incomingServerPort = process.env.INCOMING_SERVER_PORT ? parseInt(process.env.INCOMING_SERVER_PORT, 10) : 4000;
 
 const client = new Client(
