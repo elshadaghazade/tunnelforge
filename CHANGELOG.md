@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/elshadaghazade/tunnelforge/compare/v1.3.1...v1.3.2) (2025-01-11)
+
+
+### Bug Fixes
+
+* fixed docker-publish.yml for both client and server containerization ([b108cab](https://github.com/elshadaghazade/tunnelforge/commit/b108cab9f06b778cf6863d191963153ad8b13b03))
+
 ## [1.3.1](https://github.com/elshadaghazade/tunnelforge/compare/v1.3.0...v1.3.1) (2025-01-11)
 
 
