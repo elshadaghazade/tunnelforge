@@ -3,7 +3,8 @@
 ![GitHub](https://img.shields.io/github/license/elshadaghazade/tunnelforge?label=license&style=for-the-badge)
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/elshadaghazade/tunnelforge/release.yml?branch=main)
 ![GitHub issues](https://img.shields.io/github/issues/elshadaghazade/tunnelforge)
-![Docker Pulls](https://img.shields.io/docker/pulls/elshadaghazade/tunnelforge)
+![Docker Pulls Server](https://img.shields.io/docker/pulls/elshadaghazade/tunnelforge-server?label=docker%20pulls%20for%20server)
+![Docker Pulls Client](https://img.shields.io/docker/pulls/elshadaghazade/tunnelforge-client?label=docker%20pulls%20for%20client)
 
 # TunnelForge
 
@@ -103,38 +104,54 @@ PROXY_SERVER_MAIN_HOST=globalmedbooking.com
 ```
 
 ## Dockerizing TunnelForge
-You can easily run the TunnelForge server using Docker. This simplifies the deployment process, ensuring a consistent environment.
+You can easily run both the **TunnelForge server** and **client** using Docker. This approach simplifies deployment, ensuring a consistent environment for running the application
+
 ### Steps to Dockerize TunnelForge
-1. **Build the Docker Image Locally**
-    Clone the repository and navigate to its root folder. Then, build the Docker image:
+1. **Prepare the ```.env``` File**
+
+    Create an .env file in the root directory with the following contents, adjusting the values to match your desired configuration:
     ```
-    docker build -t elshadaghazade/tunnelforge .
+    NODE_ENV=production
+    CLIENT_SERVER_PORT=4000
+    INCOMING_SERVER_PORT=4001
+    SERVER_CLIENT_HOST=0.0.0.0
+    SERVER_INCOMING_HOST=0.0.0.0
+    RECONNECT_INTERVAL=1000
+    PROXY_SERVER_MAIN_HOST=yourcustomdomain.com
+
+    CLIENT_PARAM_SERVER_HOST=127.0.0.1
+    CLIENT_PARAM_SERVER_PORT=4000
+    CLIENT_PARAM_LOCAL_APP_HOST=127.0.0.1
+    CLIENT_PARAM_LOCAL_APP_PORT=3010
     ```
-2. **Run the Docker Container**
-    Use the following command to run the server:
-    ```
-    docker run -d \
-        -e NODE_ENV=production \
-        -e CLIENT_SERVER_PORT=4000 \
-        -e INCOMING_SERVER_PORT=4001 \
-        -e SERVER_CLIENT_HOST=0.0.0.0 \
-        -e SERVER_INCOMING_HOST=0.0.0.0 \
-        -e RECONNECT_INTERVAL=1000 \
-        -e PROXY_SERVER_MAIN_HOST=yourdomain.com \
-        -p 4000:4000 \
-        -p 4001:4001 \
-        elshadaghazade/tunnelforge
-    ```
-3. **Using Docker Compose**
-    With the provided ```docker-compose.yml``` file, simply run:
+    - **Server Environment Variables:**
+        - ```CLIENT_SERVER_PORT``` and ```INCOMING_SERVER_PORT```: Ports exposed by the TunnelForge server.
+        - ```PROXY_SERVER_MAIN_HOST```: Your main domain to handle subdomains.
+    - **Client Parameters:**
+        - ```CLIENT_PARAM_SERVER_HOST``` and ```CLIENT_PARAM_SERVER_PORT```: Host and port of the TunnelForge server.
+        - ```CLIENT_PARAM_LOCAL_APP_HOST``` and ```CLIENT_PARAM_LOCAL_APP_PORT```: Host and port of the local application to expose.
+2. **Build and Run with Docker Compose**
+
+    The provided ```docker-compose.yml``` file is configured to build and run both the server and client. To start everything, simply run:
     ```
     docker compose up -d
     ```
-    This will set up and start the TunnelForge server with the configuration in the docker-compose.yml.
-4. **Accessing TunnelForge**
-    After running the container, your TunnelForge server will be accessible on the specified ports (```CLIENT_SERVER_PORT``` and ```INCOMING_SERVER_PORT```) and domain (```PROXY_SERVER_MAIN_HOST```).
+3. **Server and Client Communication**
+    - The **server** will listen on the ports specified in ```CLIENT_SERVER_PORT``` and ```INCOMING_SERVER_PORT```.
+    - The **client** will forward requests to your local application and make it publicly accessible via the ```PROXY_SERVER_MAIN_HOST``` and generated subdomain.
 
-Explore the official Docker image: [TunnelForge on Docker Hub](https://hub.docker.com/r/elshadaghazade/tunnelforge)
+4. **Accessing Your Public URL**
+
+    After starting the services, the client will log the public URL for accessing your local application. This will be in the format:
+    ```
+    http://[generated-subdomain].yourcustomdomain.com:[INCOMING_SERVER_PORT]
+    ```
+
+5. **Explore the Docker Images**
+
+    You can find the Docker images for TunnelForge on Docker Hub:
+    - [TunnelForge Server](https://hub.docker.com/r/elshadaghazade/tunnelforge-server)
+    - [TunnelForge Client](https://hub.docker.com/r/elshadaghazade/tunnelforge-client)
 
 
 ## Contributing
