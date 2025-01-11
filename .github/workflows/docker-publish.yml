@@ -16,7 +16,12 @@ jobs:
     - name: Log in to GitHub Container Registry
       run: echo "${{ secrets.TOKEN2 }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-    - name: Build and push Docker image
+    - name: Build and push Docker image for server
       run: |
-        docker build -t ghcr.io/${{ github.actor }}/tunnelforge:latest .
-        docker push ghcr.io/${{ github.actor }}/tunnelforge:latest
+        docker build -t ghcr.io/${{ github.actor }}/tunnelforge-server:latest -f Dockerfile-server
+        docker push ghcr.io/${{ github.actor }}/tunnelforge-server:latest
+    
+    - name: Build and push Docker image for client
+      run: |
+        docker build -t ghcr.io/${{ github.actor }}/tunnelforge-client:latest -f Dockerfile-client
+        docker push ghcr.io/${{ github.actor }}/tunnelforge-client:latest
